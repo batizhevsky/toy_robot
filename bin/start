@@ -1,0 +1,23 @@
+#!/usr/bin/env ruby
+
+require 'bundler/setup'
+require 'toy_robot'
+
+Signal.trap('INT') do
+  puts "\n Bye."
+  exit
+end
+
+
+puts 'Hello, friend.'
+puts 'Allowed commands: PLACE X,Y,F; MOVE; LEFT; RIGHT; REPORT'
+puts 'Type PLACE 0,0,NORTH to start, for example'
+puts 'Press CTRL-C to exit'
+
+cli = ToyRobot::CLIAdaptor.new(debug: true)
+
+print '$ '
+while ARGF.gets
+  cli.handle($_)
+  print '$ '
+end
