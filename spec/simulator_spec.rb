@@ -1,10 +1,10 @@
 require 'spec_helper'
 
 RSpec.describe ToyRobot::Simulator do
-  let(:robot) { ToyRobot::Robot.new }
-  let(:table) { ToyRobot::Table.new(size: 5) }
+  let(:robot) { spy('ToyRobot::Robot') }
+  let(:table) { spy('ToyRobot::Table') }
 
-  subject { described_class.new(robot: robot, table: table) }
+  subject { described_class.new }
 
   describe '#place' do
     it 'setup simulator' do
@@ -33,43 +33,14 @@ RSpec.describe ToyRobot::Simulator do
   end
 
   describe '#move' do
-    it 'move robot to the North by 1 step' do
-      subject.place(0, 1, :north)
+    it 'call table to move' do
+      allow(subject).to receive(:robot) { robot }
+      allow(subject).to receive(:table) { table }
+
+      expect(robot).to receive(:direction) { :south }
+      expect(table).to receive(:move_to).with(:south)
 
       subject.move
-
-      expect(subject.report).to eq [1, 1, :north]
-    end
-
-    it 'move robot to the East by 1 step' do
-      subject.place(0, 0, :east)
-
-      subject.move
-
-      expect(subject.report).to eq [0, 1, :east]
-    end
-
-    it 'move robot to the South by 1 step' do
-      subject.place(1, 0, :south)
-
-      subject.move
-
-      expect(subject.report).to eq [0, 0, :south]
-    end
-
-    it 'move robot to the West by 1 step' do
-      subject.place(0, 1, :west)
-
-      subject.move
-
-      expect(subject.report).to eq [0, 0, :west]
-    end
-
-    it 'raise when robot moving out of the table' do
-      subject.place(0, 4, :east)
-
-      expect{ subject.move }.to raise_error(
-        ToyRobot::ProhibitedStep)
     end
 
     it 'not execute when robot not placed' do
@@ -79,22 +50,13 @@ RSpec.describe ToyRobot::Simulator do
   end
 
   describe '#left' do
-    context 'it faced north' do
-      before { subject.place(0, 0, :north) }
+    it 'turn robot left' do
+      allow(subject).to receive(:robot) { robot }
+      expect(robot).to receive(:left)
 
-      it 'runs once and robot rotated at 90 degree' do subject.left
-
-      expect(subject.report).to eq [0, 0, :west]
-      end
-
-      it 'runs twice and robot rotated at 180 degree' do
-        subject.left
-        subject.left
-
-        expect(subject.report).to eq [0, 0, :south]
-      end
+      subject.left
     end
- 
+
     it 'not execute when robot not placed' do
       expect{ subject.left }.to raise_error(
         ToyRobot::RobotNotPlaced)
@@ -102,21 +64,11 @@ RSpec.describe ToyRobot::Simulator do
   end
 
   describe '#right' do
-    context 'it faced north' do
-      before { subject.place(0, 0, :north) }
+    it 'turn robot right' do
+      allow(subject).to receive(:robot) { robot }
+      expect(robot).to receive(:right)
 
-      it 'runs once and robot rotated at 90 degree' do
-        subject.right
-
-        expect(subject.report).to eq [0, 0, :east]
-      end
-
-      it 'runs twice and robot rotated at 180 degree' do
-        subject.right
-        subject.right
-
-        expect(subject.report).to eq [0, 0, :south]
-      end
+      subject.right
     end
 
     it 'not execute when robot not placed' do

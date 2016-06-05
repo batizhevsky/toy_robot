@@ -1,21 +1,38 @@
 module ToyRobot
   class Table
-    def initialize(size: 5)
+    def initialize(x, y, size: 5)
+      @x, @y = x, y
       @size = size
-      @x = 0
-      @y = 0
+
+      check_range(x,y)
     end
 
-    def move_to(x, y)
-      raise OutOfTable unless can_placed?(x, y)
-      @x = x
-      @y = y
+    def move_to(direction)
+      move_x, move_y = @x, @y
+      case direction
+      when :north
+        move_x += 1
+      when :east
+        move_y += 1
+      when :south
+        move_x -= 1
+      when :west
+        move_y -= 1
+      else
+        raise 'will never be executed'
+      end
+
+      check_range(move_x, move_y)
+
+      @x, @y = move_x, move_y
     end
 
     # @return [Array] return a position array with x and y coord
     def current_position
       [@x, @y]
     end
+
+    private
 
     def can_placed?(x, y)
       positive?(x) &&
@@ -24,10 +41,12 @@ module ToyRobot
         y < @size
     end
 
-    private
-
     def positive?(value)
       value >= 0
+    end
+
+    def check_range(x,y)
+      raise OutOfTable unless can_placed?(x, y)
     end
   end
 end
