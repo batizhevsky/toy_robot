@@ -3,7 +3,7 @@ require_relative 'errors'
 module ToyRobot
   class Simulator
     def place(x, y, orientation)
-      put_on_table(x,y)
+      put_on_table(x, y)
       turn_on(orientation)
       true
     end
@@ -18,16 +18,16 @@ module ToyRobot
     end
 
     def right
-     robot.right
+      robot.right
     end
 
     def left
-     robot.left
+      robot.left
     end
 
     private
 
-    def put_on_table(x,y)
+    def put_on_table(x, y)
       @table = Table.new(x, y)
     end
 

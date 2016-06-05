@@ -14,12 +14,12 @@ RSpec.describe ToyRobot::Simulator do
     end
 
     it 'raise error when placed out of table' do
-      expect{ subject.place(5,6, :west) }.to raise_error(
+      expect { subject.place(5, 6, :west) }.to raise_error(
         ToyRobot::OutOfTable)
     end
 
     it 'raise error when faced to unknown side' do
-      expect{ subject.place(4,4, :wrond) }.to raise_error(
+      expect { subject.place(4, 4, :wrond) }.to raise_error(
         ToyRobot::UnknownDirection)
     end
 
@@ -44,7 +44,7 @@ RSpec.describe ToyRobot::Simulator do
     end
 
     it 'not execute when robot not placed' do
-      expect{ subject.move }.to raise_error(
+      expect { subject.move }.to raise_error(
         ToyRobot::RobotNotPlaced)
     end
   end
@@ -58,7 +58,7 @@ RSpec.describe ToyRobot::Simulator do
     end
 
     it 'not execute when robot not placed' do
-      expect{ subject.left }.to raise_error(
+      expect { subject.left }.to raise_error(
         ToyRobot::RobotNotPlaced)
     end
   end
@@ -72,7 +72,7 @@ RSpec.describe ToyRobot::Simulator do
     end
 
     it 'not execute when robot not placed' do
-      expect{ subject.right }.to raise_error(
+      expect { subject.right }.to raise_error(
         ToyRobot::RobotNotPlaced)
     end
   end
@@ -85,7 +85,7 @@ RSpec.describe ToyRobot::Simulator do
     end
 
     it 'not output if robot not placed' do
-      expect{ subject.report }.to raise_error(
+      expect { subject.report }.to raise_error(
         ToyRobot::RobotNotPlaced)
     end
   end

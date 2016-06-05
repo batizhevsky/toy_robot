@@ -7,7 +7,7 @@ RSpec.describe ToyRobot::Table do
 
   describe 'initialize' do
     specify 'coords out of table raise error' do
-      expect{ described_class.new(4, 6) }.to raise_error(
+      expect { described_class.new(4, 6) }.to raise_error(
         ToyRobot::OutOfTable)
     end
 
@@ -46,7 +46,7 @@ RSpec.describe ToyRobot::Table do
     it 'raise when robot moving out of the table' do
       subject = described_class.new(0, 0)
 
-      expect{ subject.move_to(:west) }.to raise_error(
+      expect { subject.move_to(:west) }.to raise_error(
         ToyRobot::OutOfTable)
     end
   end

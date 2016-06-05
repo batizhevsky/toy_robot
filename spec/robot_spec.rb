@@ -8,7 +8,7 @@ RSpec.describe ToyRobot::Robot do
   describe 'initialization' do
     context 'incorrect direction passed' do
       it 'raise error' do
-        expect{ described_class.new(:wrong) }.to raise_error(
+        expect { described_class.new(:wrong) }.to raise_error(
           ToyRobot::UnknownDirection)
       end
     end

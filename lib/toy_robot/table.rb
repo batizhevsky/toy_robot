@@ -4,7 +4,7 @@ module ToyRobot
       @x, @y = x, y
       @size = size
 
-      check_range(x,y)
+      check_range(x, y)
     end
 
     def move_to(direction)
@@ -45,7 +45,7 @@ module ToyRobot
       value >= 0
     end
 
-    def check_range(x,y)
+    def check_range(x, y)
       raise OutOfTable unless can_placed?(x, y)
     end
   end
